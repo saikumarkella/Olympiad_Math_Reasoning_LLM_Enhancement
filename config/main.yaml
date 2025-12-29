@@ -1,0 +1,8 @@
+data:
+  datafiles:
+    - "data/processed/math_data_1.json"
+    - "data/processed/math_data_2.json"
+    - "data/processed/math_data_3.json"
+
+model:
+  name: "Qwen/Qwen2.5-Math-1.5B-Instruct"
