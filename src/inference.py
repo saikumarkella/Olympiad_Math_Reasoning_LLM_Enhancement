@@ -15,7 +15,7 @@ from src.utils.prompts import code_prompt, cot_prompt
 import yaml
 import time
 import os
-from bitsandbytes import BitsAndBytesConfig
+from transformers import BitsAndBytesConfig
 from utils.preprocess_data import merge_jsons_convert_dataframe
 
 
@@ -58,7 +58,7 @@ class InferencePipeline:
         self.device = device
         self.functionality = functionality # 'TIR` or `CoT`
 
-    def generate(self, prompt, max_length=512, temperature=0.7, top_p=0.9):
+    def generate(self, prompt, max_length=2048, temperature=0.7, top_p=0.9):
         """
             Generate the response from the model based on the given prompt.
         """
@@ -104,4 +104,10 @@ if __name__ == "__main__":
     data_paths = config['data']['datafiles']
     df = merge_jsons_convert_dataframe(data_paths)
     print("Dataframe shape after merging JSONs: ", df.shape)
+    sample_problem = df.iloc[0]['problem']
+    print("Sample Problem: ", sample_problem)
+    # initializing the inference pipeline
+    inference_pipeline = InferencePipeline(model, tokenizer,functionality='TIR', device=DEVICE)
+    # generating the response
+    
 
