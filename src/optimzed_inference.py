@@ -29,6 +29,7 @@ from transformers import BitsAndBytesConfig
 from utils.preprocess_data import merge_jsons_convert_dataframe
 from utils.output_parsers import parser_cot_response, parser_tir_response, run_code_safely_sandbox
 
+os.environ["TOKENIZERS_PARALLELISM"] = "false"  # to prevent long warning messages
 
 # ----------------------------
 # loading the configurations
@@ -60,6 +61,13 @@ model = AutoModelForCausalLM.from_pretrained(MODEL_NAME,
                                             )
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 
+
+# initializing the flash attention
+model.set_attention_implementation("flash_attention_2")  # enabling the flash attention mechanism.
+
+# initializing the static kv cache and torch.compile for optimized inference
+model.generation_config.cache_implementation = "static"
+model.forward = torch.compile(model.forward, mode = "reduce-overhead", fullgraph=True)
 
 
 class InferencePipeline:
