@@ -1,6 +1,16 @@
 """
-    Inference Module.
-    - Handles model inference and reasoning during test time.
+    Optimized Inference pipeline and Experimenting with .
+    - Static KV Cache and torch.compile
+    - Decoding Strategies:
+        - Speculative Decoding.
+        - Prompt lookup Decoding.
+    - attentions
+        - FlashAttention-2.
+        - Pytorch scaled dot-product attention.
+    - Quantization
+        - 4-bit Quantization with bitsandbytes.
+
+    - Continous Batching
 """
 import torch
 from transformers import (
