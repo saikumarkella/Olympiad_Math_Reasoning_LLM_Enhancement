@@ -18,3 +18,16 @@ There are 2 methodologies are using to solve this .
 2. Post Training ( using SFT + Reinforcement Learning ).
 
 
+
+## Test-Time Compute / Inference-time Reasoning.
+- Proposed  methods:
+    1. Chain of Thoughts (CoT)
+    2. Tool Integrated Reasoning (TIR)
+
+- Optimization of Speed Efficincy.
+    - Applying optimization techniques like 
+        - KV-Cache
+        - Quantization (using BitsandBytes)
+        - Kernel optimizations like `flash-attention-2`
+
+

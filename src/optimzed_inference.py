@@ -57,13 +57,14 @@ model = AutoModelForCausalLM.from_pretrained(MODEL_NAME,
                                             quantization_config=bnb_config,
                                             device_map="auto",
                                             torch_dtype="auto",
-                                            trust_remote_code=True
+                                            trust_remote_code=True,
+                                            attn_implementation="flash_attention_2",
                                             )
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 
 
 # initializing the flash attention
-model.set_attention_implementation("flash_attention_2")  # enabling the flash attention mechanism.
+# model.set_attention_implementation("flash_attention_2")  # enabling the flash attention mechanism.
 
 # initializing the static kv cache and torch.compile for optimized inference
 model.generation_config.cache_implementation = "static"
